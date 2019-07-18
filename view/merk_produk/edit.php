@@ -6,12 +6,12 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     
     <!-- CSS Bootstrap Stylesheet -->
-    <link rel="stylesheet" href="assets/css/bootstrap.css">
+    <link rel="stylesheet" href="../../assets/css/bootstrap.css">
 
     <!-- JS Library -->
-    <script src="assets/js/jquery-3.4.1.js"></script>
-    <script src="assets/js/bootstrap.js"></script>
-    <script src="assets/js/bootstrap.min.js"></script>
+    <script src="../../assets/js/jquery-3.4.1.js"></script>
+    <script src="../../assets/js/bootstrap.js"></script>
+    <script src="../../assets/js/bootstrap.min.js"></script>
     <title>Document</title>
 </head>
 <body>
@@ -31,7 +31,7 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item active">
-                        <a class="nav-link" href="#">Beranda</a>
+                        <a class="nav-link" href="../../index.php">Beranda</a>
                     </li>
                     <li class="nav-item active">
                         <a class="nav-link" href="controller/koneksi.php">Cek Koneksi</a>
@@ -59,19 +59,45 @@
                 </form>
             </div>
         </div>
-        <!-- Container End -->
+        <!-- End Container -->
     </nav>
-    <!-- Navigation Bar End -->
+    <!-- End Navigation Bar -->
 
+    <!-- Start Content -->
     <article>
-        <div class="container">
+        <div class="container" style="padding-top: 30px">
             <div class="row">
                 <div class="col">
-                    <h1 class="display-4">Index Parent</h1>
+                    <h1 class="display-4 text-center">Ubah Merk Produk</h1>
+                    <hr/>
+                    <br/>
+                    
+                    <!-- Start Form Insert -->
+                    <?php
+                        include "../../controller/koneksi.php";
+                        $id_merk = $_GET['id_merk'];
+                        $query = "SELECT * FROM merk WHERE id_merk = '$id_merk'";
+
+                        //Menangkap data menggunakan variabel 'koneksi' dan 'data' berdasarkan id_merk
+                        $result = mysqli_query($conn, $query);
+                        $row = mysqli_fetch_array($result);
+                    ?>
+
+                    <form action="../../controller/merk_produk/update.php" method="POST">
+                        <div class="form-group row">
+                            <label for="nama_merk" class="col-sm-3">Nama Merk Produk</label>
+                            <input type="hidden" name="id_merk" value="<?= $row['id_merk']; ?>">
+                            <input type="text" class="form-control col-sm-9" name="nama_merk" value="<?= $row['nama_merk']; ?>">
+                            <br/>
+                            <button type="submit" name="simpan" class="btn btn-success text-white">Simpan</button>
+                        </div>
+                    </form>
+                    <!-- Finish Form Insert -->
                 </div>
             </div>
         </div>
     </article>
+    <!-- End Content -->
     
 </body>
 </html>

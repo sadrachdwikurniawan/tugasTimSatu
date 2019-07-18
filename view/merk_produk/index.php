@@ -6,12 +6,12 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     
     <!-- CSS Bootstrap Stylesheet -->
-    <link rel="stylesheet" href="assets/css/bootstrap.css">
+    <link rel="stylesheet" href="../../assets/css/bootstrap.css">
 
     <!-- JS Library -->
-    <script src="assets/js/jquery-3.4.1.js"></script>
-    <script src="assets/js/bootstrap.js"></script>
-    <script src="assets/js/bootstrap.min.js"></script>
+    <script src="../../assets/js/jquery-3.4.1.js"></script>
+    <script src="../../assets/js/bootstrap.js"></script>
+    <script src="../../assets/js/bootstrap.min.js"></script>
     <title>Document</title>
 </head>
 <body>
@@ -31,7 +31,7 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item active">
-                        <a class="nav-link" href="#">Beranda</a>
+                        <a class="nav-link" href="../../index.php">Beranda</a>
                     </li>
                     <li class="nav-item active">
                         <a class="nav-link" href="controller/koneksi.php">Cek Koneksi</a>
@@ -59,19 +59,57 @@
                 </form>
             </div>
         </div>
-        <!-- Container End -->
+        <!-- End Container -->
     </nav>
-    <!-- Navigation Bar End -->
+    <!-- End Navigation Bar -->
 
+    <!-- Start Content -->
     <article>
-        <div class="container">
+        <div class="container" style="padding-top: 30px">
             <div class="row">
                 <div class="col">
-                    <h1 class="display-4">Index Parent</h1>
+                    <h1 class="display-4 text-center">Daftar Merk Produk</h1>
+                    <hr/>
+                    <br/>
+                    
+                    <a class="btn btn-primary" href="add.php">Tambah Data</a>
+                    <br/>
+                    <br/>
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>Merk</th>
+                                <th>Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php
+                                    include "../../controller/koneksi.php";
+                                    $query = "SELECT id_merk, nama_merk FROM merk";
+                                    $result = mysqli_query($conn, $query);
+                                    
+                                    $num = 1;
+                                    foreach ($result as $row) {
+                                        ?>
+                                        <tr>
+                                            <td><?= $num++; ?></td>        
+                                            <td><?= $row['nama_merk']; ?></td>        
+                                            <td class="w-25">
+                                                <a class="btn btn-info btn-sm btn-warning" href="edit.php<?= "?id_merk=" .$row['id_merk']; ?>">Ubah Data</a>
+                                                <a class="btn btn-info btn-sm bg-danger" href="../../controller/merk_produk/delete.php<?= "?id_merk=" .$row['id_merk']; ?>">Hapus</a>
+                                            </td>
+                                        </tr>
+                                        <?php
+                                    }
+                                ?>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
     </article>
+    <!-- End Content -->
     
 </body>
 </html>
